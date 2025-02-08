@@ -23,6 +23,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
+          base: main
           branch: deploy/github-pages
           title: 'Weekly Merge: main → deploy/github-pages'
           commit-message: 'chore: weekly merge from main to deploy/github-pages'
