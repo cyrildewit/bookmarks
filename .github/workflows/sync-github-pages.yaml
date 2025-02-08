@@ -1,0 +1,34 @@
+name: Weekly PR from Main to Deploy/GitHub-Pages
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # Runs every Monday at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: deploy/github-pages
+
+      - name: Reset promotion branch
+        run: |
+          git fetch origin main:main
+          git reset --hard main
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: deploy/github-pages
+          title: 'Weekly Merge: main → deploy/github-pages'
+          commit-message: 'chore: weekly merge from main to deploy/github-pages'
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        run: gh pr merge --merge --auto "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
