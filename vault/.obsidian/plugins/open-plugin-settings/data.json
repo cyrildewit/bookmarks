@@ -1,0 +1,19 @@
+{
+  "pluginCmdr": [
+    {
+      "id": "open-plugin-settings",
+      "name": "Open Plugin Settings",
+      "commandName": "Open Plugin Settings"
+    },
+    {
+      "id": "obsidian-style-settings",
+      "name": "Style Settings",
+      "commandName": "Style Settings"
+    },
+    {
+      "id": "cmdr",
+      "name": "Commander",
+      "commandName": "Commander"
+    }
+  ]
+}
